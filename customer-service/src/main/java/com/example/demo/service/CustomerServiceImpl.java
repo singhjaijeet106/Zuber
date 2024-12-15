@@ -26,10 +26,17 @@ public class CustomerServiceImpl implements CustomerService {
 		CustomerDTO customerDTO = null;
 		List<String> errorList = customerUtil.validateCustomerCommandRequestObject(customerCommand);
 		if(errorList==null || errorList.isEmpty()) {
-			
+			customerDTO = customerUtil.convertCustomerCommandtoCustomerDto(customerCommand);
 		}else {
 			throw new ValidationException("Error while validating customer request", errorList);
 		}
+		return customerDTO;
+	}
+	
+	
+	@Override
+	public CustomerDTO getCustomerByUsername(String username) {
+		CustomerDTO customerDTO = CustomerUtil.getRandomCustomerDTO(username);
 		return customerDTO;
 	}
 

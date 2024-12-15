@@ -5,4 +5,5 @@ import com.example.demo.model.CustomerDTO;
 
 public interface CustomerService {
 	public CustomerDTO createNewCustomer(CustomerCommand customerCommand);
+	public CustomerDTO getCustomerByUsername(String username);
 }

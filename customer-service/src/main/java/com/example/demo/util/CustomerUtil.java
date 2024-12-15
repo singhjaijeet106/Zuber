@@ -21,6 +21,8 @@ public class CustomerUtil {
 	private static final Logger log = LoggerFactory.getLogger(CustomerUtil.class);
 	private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zAA-Z]{2,7}$";
 	private final Random random = new Random();
+	
+	
 	public List<String> validateCustomerCommandRequestObject(CustomerCommand customerCommand) {
 		List<String> errorList = new ArrayList<>();
 
@@ -49,7 +51,7 @@ public class CustomerUtil {
 
 	public CustomerDTO convertCustomerCommandtoCustomerDto(CustomerCommand command) {
 		return CustomerDTO.builder()
-				.id(random.nextLong())
+				.id(random.nextLong(946831266482331l))
 				.firstName(command.getFirstName())
 				.lastName(command.getLastName())
 				.email(command.getEmail())
@@ -85,10 +87,14 @@ public class CustomerUtil {
 
 	private String validateEmailAddress(String email) {
 		String result = null;
-		Pattern pattern = Pattern.compile(EMAIL_REGEX);
-		Matcher matcher = pattern.matcher(email);
-		if (!matcher.matches()) {
-			result = "Invalid email address";
+		if(email==null) {
+			result = "{} field cann't be empty";
+		}else {
+			Pattern pattern = Pattern.compile(EMAIL_REGEX);
+			Matcher matcher = pattern.matcher(email);
+			if (!matcher.matches()) {
+				result = "Invalid email address";
+			}
 		}
 		return result;
 	}

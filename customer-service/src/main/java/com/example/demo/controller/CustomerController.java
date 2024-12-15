@@ -34,7 +34,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CustomerDTO> saveCustomerDto(CustomerCommand customerCommand){
+	public ResponseEntity<CustomerDTO> saveCustomerDto(@RequestBody CustomerCommand customerCommand){
 		CustomerDTO customerDTO = customerService.createNewCustomer(customerCommand);
 		return ResponseEntity.status(HttpStatus.CREATED).body(customerDTO);
 	}
