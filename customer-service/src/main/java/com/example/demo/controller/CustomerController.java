@@ -28,7 +28,6 @@ public class CustomerController {
 	
 	private final CustomerService customerService;
 	
-	@Autowired
 	public CustomerController(CustomerService customerService) {
 		this.customerService = customerService;
 	}
@@ -53,8 +52,9 @@ public class CustomerController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<CustomerDTO> updateCustomerDtoByUsername(@RequestParam("username") String username, @RequestBody CustomerDTO customerDTO){	
-		customerDTO = CustomerUtil.getRandomCustomerDTO(username);
+	public ResponseEntity<CustomerDTO> updateCustomerDtoByUsername(@RequestParam("username") String username, @RequestBody CustomerCommand customerCommand){	
+		CustomerDTO customerDTO = customerService.createNewCustomer(customerCommand);
+		customerDTO.setUserName(username);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDTO);
 	}
 	
@@ -87,5 +87,11 @@ public class CustomerController {
 	public ResponseEntity<String> removeCustomerAddress(@RequestParam("addresstag") String addressTag, @RequestParam("username") String username) {
 		return ResponseEntity.status(HttpStatus.OK).body("Removed successfully");
 	}
-
+	
+	@PostMapping("/send-request")
+    //@ApiOperation("API TO SEND REQUEST TO AVAILABLE DRIVER")
+    public ResponseEntity<String> sendRequestToDriver(@RequestBody final CustomerRequestDriver customerRequestDriver){
+        customerService.sendRequestDriver(customerRequestDriver);
+        return ResponseEntity.ok("Message send successfully");
+    }
 }
