@@ -8,8 +8,8 @@ import lombok.ToString;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class CustomerCommand {
 	private String userName;
